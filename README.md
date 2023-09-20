@@ -1,4 +1,6 @@
-# TODO App - you can add, delete and filter todos in todo list.
+# TODO App
+
+You can add, delete and filter todos in todo list.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
