@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.App .ant-list, 
+.App .ant-form {
+  margin: 0 auto;
+  width: 600px;
+}
+
+
