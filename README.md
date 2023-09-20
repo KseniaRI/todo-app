@@ -1,7 +1,10 @@
 # TODO App - you can add, delete and filter todos in todo list.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 It uses TypeScript, React, React Hooks, Redux, Redux Toolkit and Ant design library.
+
+Website: https://cozy-kheer-ec65f4.netlify.app/
 
 ## Available Scripts
 
