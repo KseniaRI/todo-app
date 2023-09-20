@@ -3,6 +3,7 @@ import { Button, Space, Typography } from 'antd';
 import { removeTodo } from '../redux/todoSlice';
 import { TododsIndicator } from '../types';
 import { getCompletedTodos, getTodos, getUncompletedTodos } from '../redux/selectors';
+import { useEffect } from 'react';
 
 interface FooterTodoListProps{
     indicator: TododsIndicator;
@@ -16,9 +17,15 @@ const FooterTodoList = ({ indicator, setIndicator }: FooterTodoListProps) => {
     const uncompletedTodos = useSelector(getUncompletedTodos);
     const completedTodos = useSelector(getCompletedTodos);
 
+    useEffect(() => {
+        if (uncompletedTodos.length === 0 || completedTodos.length === 0) {
+            setIndicator(TododsIndicator.ALL);
+        }
+    }, [uncompletedTodos, completedTodos, setIndicator])
+    
     const clearCompleted = () => {
         todos.forEach(todo => {
-            if (todo.completed === true) {
+            if (todo.completed) {
                 dispatch(removeTodo(todo.id));
             }
         })

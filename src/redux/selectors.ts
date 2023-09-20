@@ -5,12 +5,12 @@ export const getTodos = (state: RootState) => state.todos.todos;
 
 export const getCompletedTodos = createSelector(
   [getTodos],
-  todos => todos.filter(todo => todo.completed === true)
+  todos => todos.filter(todo => todo.completed)
 );
 
 export const getUncompletedTodos = createSelector(
   [getTodos],
-  todos => todos.filter(todo => todo.completed === false)
+  todos => todos.filter(todo => !todo.completed)
 );
 
     
