@@ -5,10 +5,6 @@ import configureStore, { MockStoreEnhanced } from "redux-mock-store";
 import MatchMediaMock from 'jest-matchmedia-mock';
 import { ITodo } from "./types";
 import TodoList from "./components/TodoList";
-import { addTodo, removeTodo } from "./redux/todoSlice";
-// import TodoForm from "./components/TodoForm";
-import TodoItem from "./components/TodoItem";
-import { addNewTodo, deleteTodo } from "./redux/todosOperations";
 
 interface ITodos {
     todos: ITodo[]
