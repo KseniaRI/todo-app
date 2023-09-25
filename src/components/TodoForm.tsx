@@ -1,18 +1,18 @@
-import { useDispatch } from 'react-redux';
-import { addTodo } from '../redux/todoSlice';
 import { Button, Form, Input } from 'antd';
+import { useAppDispatch } from '../redux/redux-hooks';
+import { addNewTodo } from '../redux/todosOperations';
 import { IValues } from '../types';
 
 const TodoForm = () => {
   const [form] = Form.useForm();
-  const value = Form.useWatch('todoText', form)?.trim();
+  const value = Form.useWatch('todoText', form)?.trim(); 
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onFinish = ({ todoText }: IValues) => {
     const trimmedTodo = todoText.trim();
       if (trimmedTodo.length) {
-        dispatch(addTodo(trimmedTodo));
+        dispatch(addNewTodo(trimmedTodo));
       }
     form.resetFields();
   };

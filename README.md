@@ -2,9 +2,11 @@
 
 You can add, delete and filter todos in todo list.
 
+The application use async operations and get ready todos from jsonplaceholder.typicode.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-It uses TypeScript, React, React Hooks, Redux, Redux Toolkit and Ant design library.
+It uses TypeScript, React, React Hooks, Redux, Redux Toolkit, AsyncThunk and Ant design library.
 
 Website: https://cozy-kheer-ec65f4.netlify.app/
 

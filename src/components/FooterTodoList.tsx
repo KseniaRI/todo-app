@@ -1,9 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
 import { Button, Space, Typography } from 'antd';
-import { removeTodo } from '../redux/todoSlice';
-import { TododsIndicator } from '../types';
-import { getCompletedTodos, getTodos, getUncompletedTodos } from '../redux/selectors';
 import { useEffect } from 'react';
+import { getCompletedTodos, getTodos, getUncompletedTodos } from '../redux/selectors';
+import { useAppDispatch, useAppSelector } from '../redux/redux-hooks';
+import { deleteTodo } from '../redux/todosOperations';
+import { TododsIndicator } from '../types';
 
 interface FooterTodoListProps{
     indicator: TododsIndicator;
@@ -11,11 +11,11 @@ interface FooterTodoListProps{
 }
 
 const FooterTodoList = ({ indicator, setIndicator }: FooterTodoListProps) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const todos = useSelector(getTodos);
-    const uncompletedTodos = useSelector(getUncompletedTodos);
-    const completedTodos = useSelector(getCompletedTodos);
+    const todos = useAppSelector(getTodos);
+    const uncompletedTodos = useAppSelector(getUncompletedTodos);
+    const completedTodos = useAppSelector(getCompletedTodos);
 
     useEffect(() => {
         if (uncompletedTodos.length === 0 || completedTodos.length === 0) {
@@ -26,7 +26,7 @@ const FooterTodoList = ({ indicator, setIndicator }: FooterTodoListProps) => {
     const clearCompleted = () => {
         todos.forEach(todo => {
             if (todo.completed) {
-                dispatch(removeTodo(todo.id));
+                dispatch(deleteTodo(todo.id));
             }
         })
     }

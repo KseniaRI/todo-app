@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { List, Typography } from 'antd';
+import { getCompletedTodos, getTodos, getUncompletedTodos } from '../redux/selectors';
+import { useAppSelector } from '../redux/redux-hooks';
 import TodoItem from './TodoItem';
 import FooterTodoList from './FooterTodoList';
 import { TododsIndicator } from '../types';
-import { getCompletedTodos, getTodos, getUncompletedTodos } from '../redux/selectors';
 
 const TodoList = () => {
-    const todos = useSelector(getTodos);
-    const completedTodos = useSelector(getCompletedTodos);
-    const uncompletedTodos = useSelector(getUncompletedTodos);
+    const todos = useAppSelector(getTodos);
+    const completedTodos = useAppSelector(getCompletedTodos);
+    const uncompletedTodos = useAppSelector(getUncompletedTodos);
 
     const [indicator, setIndicator] = useState<TododsIndicator>(TododsIndicator.ALL); 
 

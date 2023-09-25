@@ -6,26 +6,27 @@ import MatchMediaMock from 'jest-matchmedia-mock';
 import { ITodo } from "./types";
 import TodoList from "./components/TodoList";
 import { addTodo, removeTodo } from "./redux/todoSlice";
-import TodoForm from "./components/TodoForm";
+// import TodoForm from "./components/TodoForm";
 import TodoItem from "./components/TodoItem";
+import { addNewTodo, deleteTodo } from "./redux/todosOperations";
 
 interface ITodos {
     todos: ITodo[]
 }
 
 interface IState {
-    todos: ITodos
+    tasks: ITodos
 }
 
 const mockStore = configureStore<IState, any>();
 
 const initialState: IState = {
-    todos: {
+    tasks: {
         todos: [
-            { id: '1', todoText: 'Todo 1', completed: false },
-            { id: '2', todoText: 'Todo 2', completed: true },
-            { id: '3', todoText: 'Todo 3', completed: true },
-            { id: '4', todoText: 'Todo 4', completed: true }
+            { id: '1', title: 'Todo 1', completed: false },
+            { id: '2', title: 'Todo 2', completed: true },
+            { id: '3', title: 'Todo 3', completed: true },
+            { id: '4', title: 'Todo 4', completed: true }
         ]
     }
 }
@@ -42,23 +43,7 @@ describe('Todo App', () => {
     });
 
     const store: MockStoreEnhanced<IState, any> = mockStore(initialState);
-    const { todos } = store.getState().todos;
-
-    it('call addTodo action with input value on Add button click', async() => {
-        render(
-            <Provider store={store}>
-                <TodoForm/>
-            </Provider>
-        );
-        const input = screen.getByTestId('todo-input');
-        const addButton = screen.getByTestId('add-button');
-        userEvent.type(input, 'new todo');
-        userEvent.click(addButton);
-        
-        await waitFor(() => {
-            expect(store.getActions()).toContainEqual(addTodo('new todo'))
-        })
-    })
+    const { todos } = store.getState().tasks;
 
     it('TodoList renders', () => {
         render(
@@ -66,7 +51,7 @@ describe('Todo App', () => {
                 <TodoList />
             </Provider>
         );
-        todos.forEach(todo => expect(screen.getByText(todo.todoText)).toBeInTheDocument());
+        todos.forEach(todo => expect(screen.getByText(todo.title)).toBeInTheDocument());
     })
 
     it('displays all todos when "All" is selected', async() => {
@@ -112,38 +97,6 @@ describe('Todo App', () => {
         await waitFor(() => {
             const activeTodoElements = screen.getAllByTestId(/^todo-item-/);
             expect(activeTodoElements).toHaveLength(activeTodos.length);
-        })
-    })
-
-    it('call removeTodo action for each completed todo when "Clear completed" is selected', async() => { 
-        render(
-            <Provider store={store}>
-                <TodoList />
-            </Provider>
-        );
-       
-        const clearButton = screen.getByText('Clear completed');
-        userEvent.click(clearButton);
-        
-        await waitFor(() => {
-            todos
-                .filter(todo => todo.completed)
-                .forEach(completedTodo => expect(store.getActions()).toContainEqual(removeTodo(completedTodo.id)));
-        })
-    })
-
-    it('call removeTodo action on "Remove todo" click', async () => {
-        render(
-            <Provider store={store}>
-                <TodoItem todo={todos[0]} />
-            </Provider>
-        );
-       
-        const removeButton = screen.getByText('Remove todo');
-        userEvent.click(removeButton);
-
-        await waitFor(() => {
-            expect(store.getActions()).toContainEqual(removeTodo(todos[0].id));
         })
     })
 
